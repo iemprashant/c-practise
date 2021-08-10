@@ -85,10 +85,37 @@ Node *swapkthnode(Node* head, int num, int K)
         return head;
     }
     //case-3 if x and y are different
+    //move x pointer to the kth node from start
     Node * x=head;
     Node*xprev=NULL;
-    for(int i=0;i<k-1;k++){
-        
+    for(int i=1;i<K;i++){
+        xprev=x;
+        x=x->next;
     }
-
+    // similarly put y pointer to  kth node from last
+    Node * y=head;
+    Node*yprev=NULL;
+     for(int i=1;i<n-K+1;i++){
+        yprev=y;
+        y=y->next;
+    }
+    //changing the previous links if exist
+    if(xprev){
+        xprev->next=y;
+    }
+    if(yprev){
+        yprev->next=x;
+    }
+    //swap pointers of x and y
+    Node*temp=x->next;
+    x->next=y->next;
+    y->next=temp;
+    //if k=1or k=n then pointerhead change;
+    if(K==1){
+        head=y;
+    }
+    if(K==n){
+        head=x; 
+    }
+    return head;
 }
